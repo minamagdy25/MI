@@ -1,21 +1,21 @@
 name: GetVideo
 on:
- workflow_dispatch :
-  inputs:
-    video_url:
-      description: 'Link Youtube'
-      required: true
+  workflow_dispatch:
+    inputs:
+      video_url:
+        description: 'Link Youtube'
+        required: true
+
 jobs:
- download:
-   runs-on: ubuntu-latest
-   steps:
-     - name: Download Video
-       run: |
-        pip install yt-dlp
-        yt-dlp -f "best[ext=mp4]" "${{ github.event.inputs.video_url }}" -o
-        my_video.mp4
-        -name:Upload Artifact
-        uses:actions/upload-artifact@v4
+  download:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Video
+        run: |
+          pip install yt-dlp
+          yt-dlp -f "best[ext=mp4]" "${{ github.event.inputs.video_url }}" -o my_video.mp4
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
-        name: video-result
-        path:my_video.mp4
+          name: video-result
+          path: my_video.mp4
